@@ -30,6 +30,9 @@ Nem szükséges ennél a feladatnál.
 #### Legforgsalmasabb nap
 ![adatterv](@bin/folyamat6.svg)
 
+#### Névstatisztika
+![adatterv](@bin/folyamat7.svg)
+
 
 ## Fejlesztés és dokumentáció során használt eszközök és külsős források
 - [cloudconvert.com](https://cloudconvert.com/)
@@ -38,7 +41,7 @@ Nem szükséges ennél a feladatnál.
 - [Visual Studio IDE](https://visualstudio.microsoft.com/)
 - [.NET 5 keretrendszer](https://dotnet.microsoft.com/en-us/)
 - [tablesgenerator.com](https://www.tablesgenerator.com/markdown_tables)
-- []()
+- [lucid.app](https://lucid.app/lucidchart/)
 - []()
 - []()
 - []()
