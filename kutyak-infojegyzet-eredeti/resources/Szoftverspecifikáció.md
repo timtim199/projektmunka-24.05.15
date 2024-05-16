@@ -38,6 +38,9 @@ Mindegyik adatállomány UTF-8 kódolású, pontosvesszővel tagolt szöveges f�
 - névstatisztika.txt ';'-vel tagolt (10.feladat)
 - névstatisztika.txt-ben a legtöbbször feltünő nevü kerül legelőre (10.feladat)
 
+### Architektúra (aka. rendszerterv)
+- .NET 5 keretrendszer
+
 ### Szükséges ismeretek
 - Visual Studio Integrált fejleszőkörnyezet _(továbbiakban IDE)_ ismerete
 - C# programozási nyelv ismerete
