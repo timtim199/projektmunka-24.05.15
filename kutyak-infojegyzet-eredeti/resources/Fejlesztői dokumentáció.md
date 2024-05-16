@@ -15,6 +15,9 @@ Nem szükséges ennél a feladatnál.
 ### Működési terv (aka rendszer működésének terve, funkciók terve)
 ![adatterv](@bin/folyamat-dgkey.svg)
 
+#### Program inditás
+![adatterv](@bin/folyamat1.svg)
+
 #### Kutyanevek számának kiírása képernyőre
 ![adatterv](@bin/folyamat2.svg)
 
