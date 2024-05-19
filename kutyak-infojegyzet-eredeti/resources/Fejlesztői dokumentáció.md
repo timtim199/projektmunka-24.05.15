@@ -4,7 +4,6 @@
 
 ## Rendszerterv
 - .NET 6 Keretrendszer használata
-- WPF Használata
 
 ### Adatterv
 ![adatterv](@bin/adatterv.svg)
