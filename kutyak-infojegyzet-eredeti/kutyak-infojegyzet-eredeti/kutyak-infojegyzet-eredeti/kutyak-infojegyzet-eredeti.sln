@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kutyak-infojegyzet-eredeti", "kutyak-infojegyzet-eredeti\kutyak-infojegyzet-eredeti.csproj", "{0D827D2A-B689-457E-AB94-27735AABC697}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kutyak-infojegyzet-eredeti", "kutyak-infojegyzet-eredeti.csproj", "{656F1AC6-AA26-4745-8C1A-9F5CDA494CCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0D827D2A-B689-457E-AB94-27735AABC697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D827D2A-B689-457E-AB94-27735AABC697}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D827D2A-B689-457E-AB94-27735AABC697}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D827D2A-B689-457E-AB94-27735AABC697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{656F1AC6-AA26-4745-8C1A-9F5CDA494CCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{656F1AC6-AA26-4745-8C1A-9F5CDA494CCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{656F1AC6-AA26-4745-8C1A-9F5CDA494CCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{656F1AC6-AA26-4745-8C1A-9F5CDA494CCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0AC71845-7F1B-4235-BB29-B2987BAF8E47}
+		SolutionGuid = {DF8D8907-F5E9-46E1-A5A1-2D9117955616}
 	EndGlobalSection
 EndGlobal
