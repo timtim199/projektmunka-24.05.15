@@ -1,17 +1,20 @@
-﻿using kutyak_infojegyzet_eredeti.Repository;
+﻿using kutyak_infojegyzet_eredeti.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace kutyak_infojegyzet_eredeti
 {
     internal static class ApplicationWorker
     {
+        public readonly static DataContext dataContext;
+        public static event EventHandler ApplicationReady;
+        static ApplicationWorker()
+        {
+            dataContext = new DataContext();
+        }
+
         public static void Start()
         {
-            new KutyaRepository().LoadDataset();
+            ApplicationReady?.Invoke(null, null);
         }
     }
 }
