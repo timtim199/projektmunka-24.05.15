@@ -11,7 +11,7 @@
 ### Adatvédelmi terv
 Nem szükséges ennél a feladatnál.
 
-### Működési terv (aka rendszer működésének terve, funkciók terve)
+### Működési terv
 ![adatterv](@bin/folyamat-dgkey.svg)
 
 #### Program inditás
