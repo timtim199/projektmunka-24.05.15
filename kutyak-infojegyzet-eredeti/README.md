@@ -5,6 +5,6 @@
 A projektfeladathoz ezen részéhez kapcsolódó állományok elérhetőséges
 
 - Dokumentáció
-  - [Fejlesztői dokumentáció](resources/Fejlesztői dokumentáció.md)
+  - [Fejlesztői dokumentáció](resources/Fejlesztői%20dokumentáció.md)
   - [Szoftverspecifikáció](resources/Szoftverspecifikáció.md)
   - [Tesztelési terv](resources/Tesztelési%20terv.md)
