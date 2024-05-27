@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace kutya_sajat_api.Data.Models
 {
-    public class MedicalRecord
+    public class MedicalRecord : IModel
     {
         public int MedicalRecordId { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -11,5 +12,10 @@ namespace kutya_sajat_api.Data.Models
 
         public int AnimalId { get; set; }
         public Animal Animal { get; set; }
+
+        public void IncludeAll<T>(DbSet<T> db) where T : class
+        {
+            throw new NotImplementedException();
+        }
     }
 }

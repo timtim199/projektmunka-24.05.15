@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kutya-sajat-api", "kutya-sajat-api\kutya-sajat-api.csproj", "{0F826D2D-0262-4F23-A762-AD1E9FEBA466}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kutya-sajat-api", "kutya-sajat-api\kutya-sajat-api.csproj", "{0F826D2D-0262-4F23-A762-AD1E9FEBA466}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

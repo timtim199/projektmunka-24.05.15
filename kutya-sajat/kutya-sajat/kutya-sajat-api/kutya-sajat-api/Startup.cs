@@ -1,4 +1,5 @@
 using kutya_sajat_api.Data;
+using kutya_sajat_api.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,7 @@ namespace kutya_sajat_api
         {
 
             services.AddDbContext<ApplicationDbContext>();
+            services.BuildRepositories();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
