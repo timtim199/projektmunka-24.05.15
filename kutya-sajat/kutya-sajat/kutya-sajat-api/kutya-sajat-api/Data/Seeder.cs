@@ -17,13 +17,16 @@ namespace kutya_sajat_api.Data
         private static List<Owner> _owners;
         private static List<Animal> _animals;
         private static List<MedicalRecord> _medicalRecords;
+        private static int sequences;
+
         static Seeder()
         {
             Randomizer.Seed = new Random(54456645);
         }
 
-        public static ModelBuilder Seed(this ModelBuilder modelBuilder)
+        public static ModelBuilder Seed(this ModelBuilder modelBuilder, int _sequences)
         {
+            sequences= _sequences;
             SeedBreeds(modelBuilder);
             SeedOwners(modelBuilder);
             SeedAnimals(modelBuilder);
@@ -60,11 +63,10 @@ namespace kutya_sajat_api.Data
         {
             int breedId = 1;
             var breeds = new Faker<Breed>()
-                .StrictMode(true)
                 .RuleFor(b => b.BreedId, f => breedId++)
                 .RuleFor(b => b.Name, f => f.Name.LastName())
                 .RuleFor(b => b.Description, f => f.Lorem.Text())
-                .Generate(75);
+                .Generate(CalculateSequence(75));
 
             return breeds;
         }
@@ -73,11 +75,10 @@ namespace kutya_sajat_api.Data
         {
             int ownerId = 1;
             var owners = new Faker<Owner>()
-                .StrictMode(true)
                 .RuleFor(b => b.OwnerId, f => ownerId++)
                 .RuleFor(b => b.Name, f => f.Name.FullName())
                 .RuleFor(b => b.IdCardNumber, f => Guid.NewGuid().ToString())
-                .Generate(85);
+                .Generate(CalculateSequence(85));
 
             return owners;
         }
@@ -91,7 +92,7 @@ namespace kutya_sajat_api.Data
                 .RuleFor(b => b.Description, f => f.Lorem.Text())
                 .RuleFor(b => b.AnimalId, f => f.PickRandom(_animals).AnimalId)
 
-                .Generate(300);
+                .Generate(CalculateSequence(300));
 
             return records;
         }
@@ -106,9 +107,12 @@ namespace kutya_sajat_api.Data
                 .RuleFor(b => b.BreedId, f => f.PickRandom(_breeds).BreedId)
                 .RuleFor(b => b.OwnerId, f => f.PickRandom(_owners).OwnerId)
 
-                .Generate(100);
+                .Generate(CalculateSequence());
 
             return animals;
         }
+
+        private static int CalculateSequence(decimal percentage = 100)
+            => (int)Math.Ceiling((decimal)sequences * (percentage / 100));
     }
 }

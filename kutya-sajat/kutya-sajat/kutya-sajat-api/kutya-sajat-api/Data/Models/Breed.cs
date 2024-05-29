@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace kutya_sajat_api.Data.Models
 {
@@ -7,8 +9,10 @@ namespace kutya_sajat_api.Data.Models
         public int BreedId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        [JsonIgnore]
+        public virtual List<Animal> Animals { get; set; }
 
-        public void IncludeAll<T>(DbSet<T> db) where T : class
+        public void IncludeAll(DbContext context)
         {
             throw new System.NotImplementedException();
         }

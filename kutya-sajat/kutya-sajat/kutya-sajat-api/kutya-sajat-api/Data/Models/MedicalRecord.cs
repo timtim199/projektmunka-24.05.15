@@ -13,7 +13,7 @@ namespace kutya_sajat_api.Data.Models
         public int AnimalId { get; set; }
         public Animal Animal { get; set; }
 
-        public void IncludeAll<T>(DbSet<T> db) where T : class
+        public void IncludeAll(DbContext context)
         {
             throw new NotImplementedException();
         }

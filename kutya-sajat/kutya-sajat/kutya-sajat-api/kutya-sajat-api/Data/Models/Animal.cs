@@ -1,5 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using kutya_sajat_api.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace kutya_sajat_api.Data.Models
 {
@@ -15,11 +19,14 @@ namespace kutya_sajat_api.Data.Models
         public int OwnerId { get; set; }
         public virtual Owner Owner { get; set; }
 
-        void IModel.IncludeAll<T>(DbSet<T> db) where T : class
-        {
-            (db as DbSet<Animal>).Include(x => x.Owner);
-            (db as DbSet<Animal>).Include(x => x.Breed);
-        }
+        [JsonIgnore]
+        public virtual List<MedicalRecord> MedicalRecords { get; set; }
 
+        public void IncludeAll(DbContext context)
+        {
+            context.Entry(this).Reference(x => x.Breed).Load();
+            context.Entry(this).Reference(x => x.Owner).Load();
+            context.Entry(this).Collection(x => x.MedicalRecords).Load();
+        }
     }
 }

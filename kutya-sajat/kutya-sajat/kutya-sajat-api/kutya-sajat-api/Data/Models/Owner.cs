@@ -11,7 +11,7 @@ namespace kutya_sajat_api.Data.Models
 
         public List<Animal> Animals { get; } = new();
 
-        public void IncludeAll<T>(DbSet<T> db) where T : class
+        public void IncludeAll(DbContext context)
         {
             throw new System.NotImplementedException();
         }

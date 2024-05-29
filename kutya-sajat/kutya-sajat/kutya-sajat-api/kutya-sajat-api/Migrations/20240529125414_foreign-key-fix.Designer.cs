@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using kutya_sajat_api.Data;
 
 namespace kutya_sajat_api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240529125414_foreign-key-fix")]
+    partial class foreignkeyfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,16 +43,6 @@ namespace kutya_sajat_api.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Animals");
-
-                    b.HasData(
-                        new
-                        {
-                            AnimalId = 1,
-                            BreedId = 1,
-                            DateOfBirth = new DateTime(2012, 1, 3, 14, 48, 13, 893, DateTimeKind.Unspecified).AddTicks(3536),
-                            Name = "Whitney",
-                            OwnerId = 1
-                        });
                 });
 
             modelBuilder.Entity("kutya_sajat_api.Data.Models.Breed", b =>
@@ -68,14 +60,6 @@ namespace kutya_sajat_api.Migrations
                     b.HasKey("BreedId");
 
                     b.ToTable("Breeds");
-
-                    b.HasData(
-                        new
-                        {
-                            BreedId = 1,
-                            Description = "Blanditiis vero sit molestiae accusamus velit necessitatibus.",
-                            Name = "Miller"
-                        });
                 });
 
             modelBuilder.Entity("kutya_sajat_api.Data.Models.MedicalRecord", b =>
@@ -98,29 +82,6 @@ namespace kutya_sajat_api.Migrations
                     b.HasIndex("AnimalId");
 
                     b.ToTable("MedicalRecords");
-
-                    b.HasData(
-                        new
-                        {
-                            MedicalRecordId = 1,
-                            AnimalId = 1,
-                            CreatedAt = new DateTime(1964, 11, 19, 20, 58, 28, 458, DateTimeKind.Unspecified).AddTicks(8700),
-                            Description = "aspernatur"
-                        },
-                        new
-                        {
-                            MedicalRecordId = 2,
-                            AnimalId = 1,
-                            CreatedAt = new DateTime(1968, 8, 10, 1, 47, 23, 97, DateTimeKind.Unspecified).AddTicks(1080),
-                            Description = "Error quae qui aliquid iure laborum velit ea aliquam."
-                        },
-                        new
-                        {
-                            MedicalRecordId = 3,
-                            AnimalId = 1,
-                            CreatedAt = new DateTime(1905, 1, 16, 13, 33, 39, 359, DateTimeKind.Unspecified).AddTicks(6358),
-                            Description = "In facere quidem vitae. Est dicta quis quia voluptas provident temporibus quod itaque. Ex laborum officiis nemo totam. Velit praesentium fugiat. Aliquam alias corrupti."
-                        });
                 });
 
             modelBuilder.Entity("kutya_sajat_api.Data.Models.Owner", b =>
@@ -138,14 +99,6 @@ namespace kutya_sajat_api.Migrations
                     b.HasKey("OwnerId");
 
                     b.ToTable("Owners");
-
-                    b.HasData(
-                        new
-                        {
-                            OwnerId = 1,
-                            IdCardNumber = "b0a67ddc-6805-4cd4-8c86-fe0b2e3299c8",
-                            Name = "Bertram Steuber"
-                        });
                 });
 
             modelBuilder.Entity("kutya_sajat_api.Data.Models.Animal", b =>

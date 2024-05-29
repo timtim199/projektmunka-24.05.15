@@ -1,10 +1,12 @@
 ﻿using kutya_sajat_api.Data.Models;
+using kutya_sajat_api.Data.Models.DataTransferObjects;
 using kutya_sajat_api.Data.Repositories;
 using kutya_sajat_api.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
+using DTO = kutya_sajat_api.Data.Models.DataTransferObjects;
 namespace kutya_sajat_api.Controllers
 {
     [ApiController, Route("api/animals")]
@@ -30,9 +32,42 @@ namespace kutya_sajat_api.Controllers
         {
             return ResultBuilder<Animal>.ProtectedCall(() =>
             {
-                Animal result = animals.FindId(id);
+                Animal result = animals.FindId(id, true);
                 return ResultBuilder<Animal>.Build(data: result).AsJson();
             });
         }
+
+        [HttpPost]
+        public IActionResult PostAnimal(DTO.AnimalDto animalDto)
+        {
+            return ResultBuilder<Animal>.ProtectedCall(() =>
+            {
+                Animal result = animals.Insert(animalDto);
+                result = animals.IncludeAll(result);
+                return ResultBuilder<Animal>.Build(data: result, code: 201).AsJson();
+            });
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult EditAnimal(DTO.AnimalDto animalDto, int id)
+        {
+            return ResultBuilder<Animal>.ProtectedCall(() =>
+            {
+                Animal result = animals.Update(id, animalDto);
+                result = animals.IncludeAll(result);
+                return ResultBuilder<Animal>.Build(data: result, code: 200).AsJson();
+            });
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteAnimal(int id) 
+        {
+            return ResultBuilder<Animal>.ProtectedCall(() =>
+            {
+                animals.DeleteById(id);
+                return ResultBuilder<Animal>.Build(code: 200, message: "deleted").AsJson();
+            });
+        }
+
     }
 }

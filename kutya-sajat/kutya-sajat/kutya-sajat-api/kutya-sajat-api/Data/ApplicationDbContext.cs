@@ -3,6 +3,7 @@ using kutya_sajat_api.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Reflection.Emit;
 
 namespace kutya_sajat_api.Data
 {
@@ -20,12 +21,11 @@ namespace kutya_sajat_api.Data
         public ApplicationDbContext()
         {
             InitDatasets();
-            //Animals.Include(x => x.Owner);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //builder.Seed();
+            builder.Seed(1);
             InitForeignKeys(builder);
         }
 
@@ -40,8 +40,20 @@ namespace kutya_sajat_api.Data
 
         private void InitForeignKeys(ModelBuilder builder)
         {
-            builder.Entity<Owner>()
-                .HasMany(x => x.Animals);
+            builder.Entity<Animal>()
+                .HasOne(a => a.Breed)
+                .WithMany(b => b.Animals)
+                .HasForeignKey(a => a.BreedId);
+
+            builder.Entity<Animal>()
+                .HasOne(a => a.Owner)
+                .WithMany(b => b.Animals)
+                .HasForeignKey(a => a.OwnerId);
+
+            builder.Entity<MedicalRecord>()
+                .HasOne(a => a.Animal)
+                .WithMany(b => b.MedicalRecords)
+                .HasForeignKey(a => a.AnimalId);
         }
 
         private void InitDatasets()
