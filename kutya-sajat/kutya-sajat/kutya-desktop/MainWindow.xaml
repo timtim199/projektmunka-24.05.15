@@ -1,0 +1,60 @@
+﻿<Window x:Class="kutya_desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:kutya_desktop"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid x:Name="LayoutRoot" Background="LightGray" ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.11*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <ListBox HorizontalAlignment="Stretch" x:Name="datasetsListBox" Grid.Column="0" Grid.Row="0" SelectionChanged="datasetsListBox_SelectionChanged">
+                    <ListBoxItem>Állatok</ListBoxItem>
+                    <ListBoxItem>Gazdák</ListBoxItem>
+                    <ListBoxItem>Kutya fajták</ListBoxItem>
+                    <ListBoxItem>Kórlapok</ListBoxItem>
+                </ListBox>
+                <StackPanel Grid.Column="0" Grid.Row="1">
+                    <Button Content="Új hozzáadása"/>
+                    <Button Content="Törlés"/>
+                    <Button Content="Szerkesztés"/>
+                    <Button Content="Következő lap"/>
+                    <Button Content="Előző lap"/>
+                    <Label Content="Lap: 1"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.07*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <DockPanel HorizontalAlignment="Stretch">
+                    <Label Content="Keresés:"></Label>
+                    <TextBox VerticalContentAlignment="Center"></TextBox>
+                </DockPanel>
+                <DataGrid x:Name="mainDatagrid" Grid.Row="1" SelectionChanged="mainDatagrid_SelectionChanged"></DataGrid>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</Window>
