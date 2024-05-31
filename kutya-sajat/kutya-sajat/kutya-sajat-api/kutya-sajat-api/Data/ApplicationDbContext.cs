@@ -25,7 +25,8 @@ namespace kutya_sajat_api.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Seed(1);
+            builder.Seed(100);
+
             InitForeignKeys(builder);
         }
 
