@@ -14,7 +14,7 @@ namespace kutya_sajat_api.Data.Models
 
         public void IncludeAll(DbContext context)
         {
-            throw new System.NotImplementedException();
+            context.Entry(this).Collection(x => x.Animals).Load();
         }
     }
 }

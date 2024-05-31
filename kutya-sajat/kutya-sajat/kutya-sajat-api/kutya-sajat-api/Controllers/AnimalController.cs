@@ -65,7 +65,7 @@ namespace kutya_sajat_api.Controllers
             return ResultBuilder<Animal>.ProtectedCall(() =>
             {
                 animals.DeleteById(id);
-                return ResultBuilder<Animal>.Build(code: 200, message: "deleted").AsJson();
+                return ResultBuilder<Animal>.Build(code: 204, message: "deleted").AsJson();
             });
         }
 
