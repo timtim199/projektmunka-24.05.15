@@ -1,6 +1,9 @@
-﻿using kutya_desktop.Data;
+﻿using kutya_desktop.Controls;
+using kutya_desktop.Data;
+using kutya_desktop.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -22,9 +25,13 @@ namespace kutya_desktop
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool _windowFrozen = false;
+        private int page = 0;
+
         public MainWindow()
         {
             InitializeComponent();
+            InitUiControl();
             InitListBox();
         }
 
@@ -40,19 +47,53 @@ namespace kutya_desktop
             }
         }
 
+        private void InitUiControl()
+        {
+            LayoutRoot.PreviewKeyDown += LayoutRoot_PreviewKeyDown;
+            LayoutRoot.PreviewMouseDown += LayoutRoot_PreviewMouseDown;
+        }
+
         private async void datasetsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(mainDatagrid != null)
             {
-                Dataset dataset = (Dataset)(datasetsListBox.SelectedItem as ListBoxItem).Tag;
-                await ApplicationWorker.BuildDatagrid(mainDatagrid, dataset);
+                page = 0;
+                await RebuildDatagrid();
             }
-            
+        }
+
+        private async Task RebuildDatagrid()
+        {
+            DisableControls();
+            MainViewModel mainViewModel = (MainViewModel)this.DataContext;
+
+            Dataset dataset = (Dataset)(datasetsListBox.SelectedItem as ListBoxItem).Tag;
+
+            mainViewModel.ActiveDataset = dataset;
+
+            await ApplicationWorker.BuildDatagrid(mainDatagrid, mainViewModel);
+
+            EnableControls();
         }
 
         private void mainDatagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+        }
 
+        private void DisableControls()
+            => _windowFrozen = true;
+
+        private void EnableControls()
+            => _windowFrozen = false;
+
+        private void LayoutRoot_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = _windowFrozen;
+        }
+
+        private void LayoutRoot_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = _windowFrozen;
         }
     }
 }

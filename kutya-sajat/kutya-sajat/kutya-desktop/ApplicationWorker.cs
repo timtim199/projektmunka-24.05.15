@@ -1,11 +1,13 @@
 ﻿using kutya_desktop.Data;
 using kutya_desktop.Data.Api;
 using kutya_desktop.Data.Repositories;
+using kutya_desktop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -19,11 +21,22 @@ namespace kutya_desktop
         {
             repositories = new IRepository[1] { new BreedRepository() };
         }
-        public static async Task BuildDatagrid(DataGrid dataGrid, Dataset dataset, int page = 0)
+        public static async Task BuildDatagrid(DataGrid dataGrid, IDatagridCompatibleViewModel? viewModel = null, int page = 0)
         {
+            try
+            {
+                await GetRepository(viewModel.ActiveDataset).BuildDatagrid(dataGrid, viewModel: viewModel);
 
-            await GetRepository(dataset).BuildDatagrid(dataGrid, page);
-            
+            }
+            catch (Exception ex)
+            {
+                dataGrid.Dispatcher.Invoke(() =>
+                {
+                    MessageBox.Show($"Sikertelen betöltés. {nameof(ex)}");
+                });
+            }
+
+
         }
 
         public static IRepository GetRepository(Dataset dataset)

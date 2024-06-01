@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:kutya_desktop"
+        xmlns:local="clr-namespace:kutya_desktop" xmlns:local1="clr-namespace:kutya_desktop.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local1:MainViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid x:Name="LayoutRoot" Background="LightGray" ShowGridLines="True">
             <Grid.ColumnDefinitions>
@@ -31,12 +34,17 @@
                     <ListBoxItem>Kórlapok</ListBoxItem>
                 </ListBox>
                 <StackPanel Grid.Column="0" Grid.Row="1">
-                    <Button Content="Új hozzáadása"/>
-                    <Button Content="Törlés"/>
-                    <Button Content="Szerkesztés"/>
-                    <Button Content="Következő lap"/>
-                    <Button Content="Előző lap"/>
-                    <Label Content="Lap: 1"/>
+                    <ItemsControl ItemsSource="{Binding ButtonControlData}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding Content}" Command="{Binding Command}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock>
+                        <Run Text="Lap: "/>
+                        <Run Text="{Binding Page.Value}"/> 
+                    </TextBlock>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
@@ -44,7 +52,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.07*"/>
+                    <RowDefinition Height="0.07*" MaxHeight="30"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
