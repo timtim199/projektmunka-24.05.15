@@ -11,6 +11,7 @@ namespace kutya_desktop.Data.Repositories
     internal interface IRepository
     {
         public Dataset Dataset { get; }
-        public Task BuildDatagrid(DataGrid dataGrid, int page = 0, IDatagridCompatibleViewModel? viewModel = null);
+        public Task BuildDatagrid();
+        public IRepository BuildInstance(DataGrid dataGrid, IDatagridCompatibleViewModel viewModel);
     }
 }

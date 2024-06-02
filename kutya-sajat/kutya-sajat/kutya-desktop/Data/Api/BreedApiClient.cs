@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace kutya_desktop.Data.Api
 {
-    public class BreedApiClient
+    public class BreedApiClient : IApiClient<Breed>
     {
         private readonly ApiClient _apiClient;
 
@@ -16,27 +16,27 @@ namespace kutya_desktop.Data.Api
             _apiClient = apiClient;
         }
 
-        public Task<Breed> GetBreedAsync(int id)
+        public Task<Breed> GetAsync(int id)
         {
             return _apiClient.GetAsync<Breed>($"/api/breeds/{id}");
         }
 
-        public Task CreateBreedAsync(Breed breed)
+        public Task CreateAsync(Breed entity)
         {
-            return _apiClient.PostAsync("/api/breeds", breed);
+            return _apiClient.PostAsync("/api/breeds", entity);
         }
 
-        public Task UpdateBreedAsync(int id, Breed breed)
+        public Task UpdateAsync(int id, Breed entity)
         {
-            return _apiClient.PutAsync($"/api/breeds/{id}", breed);
+            return _apiClient.PutAsync($"/api/breeds/{id}", entity);
         }
 
-        public Task DeleteBreedAsync(int id)
+        public Task DeleteAsync(int id)
         {
             return _apiClient.DeleteAsync($"/api/breeds/{id}");
         }
 
-        public async Task<IEnumerable<Breed>> GetBreedsByPageAsync(int pageNum)
+        public async Task<IEnumerable<Breed>> GetPageAsync(int pageNum)
         {
             return await _apiClient.GetAsync<List<Breed>>($"/api/breeds/page/{pageNum}");
         }

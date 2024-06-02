@@ -19,13 +19,13 @@ namespace kutya_desktop
         public static ApiClient ApiClient => new ApiClient("http://localhost:5000");
         static ApplicationWorker()
         {
-            repositories = new IRepository[1] { new BreedRepository() };
+            repositories = new IRepository[] { new BreedRepository(), new AnimalRepository() };
         }
         public static async Task BuildDatagrid(DataGrid dataGrid, IDatagridCompatibleViewModel? viewModel = null, int page = 0)
         {
             try
             {
-                await GetRepository(viewModel.ActiveDataset).BuildDatagrid(dataGrid, viewModel: viewModel);
+                await GetRepository(viewModel.ActiveDataset).BuildInstance(dataGrid, viewModel).BuildDatagrid();
 
             }
             catch (Exception ex)

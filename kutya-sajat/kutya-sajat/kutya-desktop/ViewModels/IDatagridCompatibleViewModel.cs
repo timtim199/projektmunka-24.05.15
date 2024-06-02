@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace kutya_desktop.ViewModels
 {
-    interface IDatagridCompatibleViewModel
+    public interface IDatagridCompatibleViewModel
     {
         public Prop<int> Page { get; }
         public ObservableCollection<ButtonControlModel> ButtonControlData { get; }
