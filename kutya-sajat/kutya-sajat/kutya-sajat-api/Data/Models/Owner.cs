@@ -15,5 +15,10 @@ namespace kutya_sajat_api.Data.Models
         {
             context.Entry(this).Collection(x => x.Animals).Load();
         }
+
+        public override string ToString()
+        {
+            return $"{OwnerId}{Name}{IdCardNumber}";
+        }
     }
 }

@@ -20,21 +20,20 @@ namespace kutya_desktop
         public static ApiClient ApiClient => new ApiClient("http://localhost:5000");
         static ApplicationWorker()
         {
-            repositories = new IRepository[] { new BreedRepository(), new AnimalRepository() };
+            repositories = new IRepository[] { new BreedRepository(), new AnimalRepository(), new OwnerRepository(), new MedicalRecordRepository() };
         }
         public static async Task BuildDatagrid(DataGrid dataGrid, IDatagridCompatibleViewModel? viewModel = null, int page = 0)
         {
-            await GetRepository(viewModel.ActiveDataset).BuildInstance(dataGrid, viewModel).BuildListViewDataGrid();
 
             try
             {
-
+                await GetRepository(viewModel.ActiveDataset).BuildInstance(dataGrid, viewModel).BuildListViewDataGrid();
             }
             catch (Exception ex)
             {
                 dataGrid.Dispatcher.Invoke(() =>
                 {
-                    MessageBox.Show($"Sikertelen betöltés. {nameof(ex)}");
+                    MessageBox.Show($"Sikertelen betöltés. {ex.Message}");
                 });
             }
 
