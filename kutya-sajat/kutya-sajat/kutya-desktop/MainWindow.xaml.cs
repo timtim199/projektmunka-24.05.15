@@ -65,13 +65,13 @@ namespace kutya_desktop
         private async Task RebuildDatagrid()
         {
             DisableControls();
-            MainViewModel mainViewModel = (MainViewModel)this.DataContext;
 
             Dataset dataset = (Dataset)(datasetsListBox.SelectedItem as ListBoxItem).Tag;
+            MainViewModel viewModel = GetViewModel();
+            viewModel.ActiveDataset = dataset;
 
-            mainViewModel.ActiveDataset = dataset;
 
-            await ApplicationWorker.BuildDatagrid(mainDatagrid, mainViewModel);
+            await ApplicationWorker.BuildDatagrid(mainDatagrid, viewModel);
 
             EnableControls();
         }
@@ -94,6 +94,18 @@ namespace kutya_desktop
         private void LayoutRoot_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             e.Handled = _windowFrozen;
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            MainViewModel viewModel = GetViewModel();
+            viewModel.SearchBox.Value = SearchBox.Text;
+        }
+
+        private MainViewModel GetViewModel()
+        {
+            MainViewModel mainViewModel = (MainViewModel)this.DataContext;
+            return mainViewModel;
         }
     }
 }

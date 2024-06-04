@@ -58,7 +58,7 @@
 
                 <DockPanel HorizontalAlignment="Stretch">
                     <Label Content="Keresés:"></Label>
-                    <TextBox VerticalContentAlignment="Center"></TextBox>
+                    <TextBox VerticalContentAlignment="Center" Name="SearchBox" TextChanged="SearchBox_TextChanged"></TextBox>
                 </DockPanel>
                 <DataGrid x:Name="mainDatagrid" Grid.Row="1" SelectionChanged="mainDatagrid_SelectionChanged"></DataGrid>
             </Grid>

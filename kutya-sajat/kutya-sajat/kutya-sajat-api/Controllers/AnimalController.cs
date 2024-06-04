@@ -37,6 +37,16 @@ namespace kutya_sajat_api.Controllers
             });
         }
 
+        [HttpPatch("search")]
+        public IActionResult SearchAnimal(SearchDto dto)
+        {
+            return ResultBuilder<Animal>.ProtectedCall(() =>
+            {
+                List<Animal> result = animals.SearchText(dto).ToList();
+                return ResultBuilder<List<Animal>>.Build(data: result).AsJson();
+            });
+        }
+
         [HttpPost]
         public IActionResult PostAnimal(DTO.AnimalDto animalDto)
         {
@@ -68,6 +78,7 @@ namespace kutya_sajat_api.Controllers
                 return ResultBuilder<Animal>.Build(code: 204, message: "deleted").AsJson();
             });
         }
+
 
     }
 }

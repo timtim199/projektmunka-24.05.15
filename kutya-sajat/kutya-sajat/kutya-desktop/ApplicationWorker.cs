@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using kutya_desktop.Data.Models;
 
 namespace kutya_desktop
 {
@@ -23,9 +24,10 @@ namespace kutya_desktop
         }
         public static async Task BuildDatagrid(DataGrid dataGrid, IDatagridCompatibleViewModel? viewModel = null, int page = 0)
         {
+            await GetRepository(viewModel.ActiveDataset).BuildInstance(dataGrid, viewModel).BuildListViewDataGrid();
+
             try
             {
-                await GetRepository(viewModel.ActiveDataset).BuildInstance(dataGrid, viewModel).BuildDatagrid();
 
             }
             catch (Exception ex)

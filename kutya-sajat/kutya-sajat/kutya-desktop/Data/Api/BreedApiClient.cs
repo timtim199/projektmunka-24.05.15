@@ -40,6 +40,11 @@ namespace kutya_desktop.Data.Api
         {
             return await _apiClient.GetAsync<List<Breed>>($"/api/breeds/page/{pageNum}");
         }
+
+        public async Task<IEnumerable<Breed>> SearchAsync(SearchDto dto)
+        {
+            return await _apiClient.PatchAsync<List<Breed>>($"/api/breeds/search", dto);
+        }
     }
 
 }

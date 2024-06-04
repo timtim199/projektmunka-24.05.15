@@ -50,6 +50,16 @@ namespace kutya_sajat_api.Controllers
             });
         }
 
+        [HttpPatch("search")]
+        public IActionResult SearchAnimal(SearchDto dto)
+        {
+            return ResultBuilder<Animal>.ProtectedCall(() =>
+            {
+                List<Owner> result = owners.SearchText(dto).ToList();
+                return ResultBuilder<List<Owner>>.Build(data: result).AsJson();
+            });
+        }
+
         [HttpPut("{id}")]
         public IActionResult EditOwner(DTO.OwnerDto ownerDto, int id)
         {

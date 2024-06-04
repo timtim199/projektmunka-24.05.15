@@ -50,7 +50,9 @@ namespace kutya_sajat_api.Data.Repositories
 
         public IEnumerable<T> GetPage(uint pageNumber)
         {
-            return db.Skip(pageSize * (int)pageNumber).Take(30).ToList();
+            List<T> result = db.Skip(pageSize * (int)pageNumber).Take(30).ToList();
+            result.ForEach(x => x.IncludeAll(context));
+            return result;
         }
 
         public T Insert(IDataTransferObject<T> dto, bool saveChanges = true)
@@ -94,6 +96,17 @@ namespace kutya_sajat_api.Data.Repositories
         public IEnumerable<T> Where(Func<T, bool> predicate)
         {
             return db.Where(predicate);
+        }
+
+        public IEnumerable<T> SearchText(SearchDto query)
+        {
+            string text = query.Query; 
+            int page = query.Page;
+            return Where((x) =>
+            {
+                x.IncludeAll(context);
+                return x.ToString().ToLower().Replace(" ", "").Contains(text.ToLower().Replace(" ", ""));
+            }).Skip(pageSize * page).Take(30);
         }
 
         public T IncludeAll(T entity)

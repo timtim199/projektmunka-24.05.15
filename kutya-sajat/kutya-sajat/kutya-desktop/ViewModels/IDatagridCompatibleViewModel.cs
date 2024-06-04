@@ -14,5 +14,8 @@ namespace kutya_desktop.ViewModels
         public Prop<int> Page { get; }
         public ObservableCollection<ButtonControlModel> ButtonControlData { get; }
         public Dataset ActiveDataset { get; set; }
+        public Prop<Dataset> ActiveDatasetSub { get; }
+        public Prop<string> SearchBox { get; }
+
     }
 }

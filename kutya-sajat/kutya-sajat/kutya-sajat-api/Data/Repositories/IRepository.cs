@@ -1,4 +1,5 @@
-﻿using System;
+﻿using kutya_sajat_api.Data.Models.DataTransferObjects;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,5 +14,6 @@ namespace kutya_sajat_api.Data.Repositories
         public void Delete(T entity, bool saveChanges = true);
         public void Update(T entity);
         public void Save();
+        public IEnumerable<T> SearchText(SearchDto query);
     }
 }

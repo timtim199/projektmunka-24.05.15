@@ -1,20 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using kutya_desktop.Controls;
 using kutya_desktop.Data.Api;
 using kutya_desktop.Data.Models;
 using kutya_desktop.Data.Repositories.Commands;
+using kutya_desktop.Data.Repositories.RepositoryBase.Controls;
 using kutya_desktop.ViewModels;
 
-namespace kutya_desktop.Data.Repositories
+namespace kutya_desktop.Data.Repositories.RepositoryBase
 {
-    internal abstract partial class Repository<T>  : IRepository where T : class, IDataModel, new()
+    internal abstract partial class Repository<T>  : IRepository, IDisposable where T : class, IDataModel, new()
     {
-
         public abstract Dataset Dataset { get; }
 
         protected List<T> ChangedItems = new();
@@ -22,119 +24,44 @@ namespace kutya_desktop.Data.Repositories
         protected readonly ObservableCollection<T> Entities = new();
         protected IDatagridCompatibleViewModel viewModel;
         protected DataGrid dataGrid;
+        protected Repository<T>.ListViewCompatibility<T>? listView;
+        protected readonly ObservableCollection<IControlButton> controlButtons = new();
+
+
 
         public abstract IRepository BuildInstance(DataGrid dataGrid, IDatagridCompatibleViewModel viewModel);
-
-        public async Task BuildDatagrid()
+        public async Task CommitChanges()
         {
-            BuildDataGridHeaders();
-            BuildDataGridControls();
-            await LoadDataIntoDataGrid();
-        }
-
-        protected virtual void BuildDataGridHeaders()
-        {
-            dataGrid.AutoGenerateColumns = false;
-            dataGrid.Columns.Clear();   
-            new T().BuildDataGridHeaders(dataGrid);
-        }
-
-        protected virtual void BuildDataGridControls()
-        {
-            viewModel.ButtonControlData.Clear();
-            viewModel.ButtonControlData.Add(new ButtonControlModel("Következő lap", new NextPageCommand(viewModel)));
-            viewModel.ButtonControlData.Add(new ButtonControlModel("Előző lap", new PreviousPageCommand(viewModel)));
-            viewModel.ButtonControlData.Add(new ButtonControlModel("Mentés", new GenericCommand(async () =>
+            if (listView != null)
             {
-                await CommitChanges();
-            })));
-            viewModel.ButtonControlData.Add(new ButtonControlModel("Törlés", new GenericCommand(async () =>
-            {
-                await DeleteSelectedItem();
-            })));
-
-            viewModel.Page.PropertyChanged -= PageOnPropertyChanged;
-            viewModel.Page.PropertyChanged += PageOnPropertyChanged;
-
-
-            InitEditEventHandlers();
-        }
-
-
-        private async void PageOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            await RefreshDatagrid();
-        }
-
-        private void InitEditEventHandlers()
-        {
-            dataGrid.CellEditEnding -= PushToChangedList;
-            dataGrid.CellEditEnding += PushToChangedList;
-        }
-
-        private void PushToChangedList(object? sender, DataGridCellEditEndingEventArgs e)
-        {
-            if (e.Row.Item is not T item) return;
-            if (!ChangedItems.Contains(item))
-            {
-                ChangedItems.Add(item);
-            }
-        }
-
-        private async Task CommitChanges()
-        {
-            dataGrid.CommitEdit();
-            foreach (var entity in ChangedItems)
-            {
-                await CommitChange(entity);
-            }
-            ChangedItems.Clear();
-            await RefreshDatagrid();
-        }
-
-        private async Task CommitChange(T entity)
-        {
-            if (entity.GetIdentitifier() == null)
-            {
-                await Client.CreateAsync(entity);
+                await listView.CommitChanges();
             }
             else
             {
-                await Client.UpdateAsync(entity.GetIdentitifier().Value, entity);
+                throw new Exception();
             }
         }
 
-        private async Task DeleteSelectedItem()
+        public async Task DeleteSelectedGridItems()
         {
-            var items = dataGrid.SelectedItems;
-            foreach (T item in items)
-            {
-                if (item.GetIdentitifier().HasValue)
-                {
-                    await Client.DeleteAsync(item.GetIdentitifier().Value);
-                }
-            }
-            await RefreshDatagrid();
+            await listView.DeleteSelectedItem();
         }
 
-        private async Task LoadDataIntoDataGrid()
+        protected void EnableButton<T>() where T: class, IControlButton, new()
         {
-            Entities.Clear();
+            T button = new T();
+            button.Repository = this;
+            button.ViewModel = viewModel;
 
-            List<T> entities = (await Client.GetPageAsync(viewModel.Page.Value)).ToList();
-            entities.ForEach(b =>
-            {
-                Entities.Add(b);
-            });
-            dataGrid.Dispatcher.Invoke(() =>
-            {
-                dataGrid.ItemsSource = entities;
-            });
+            controlButtons.Add(button);
         }
 
-        private async Task RefreshDatagrid()
+        public void Dispose()
         {
-            await BuildDatagrid();
+            viewModel.ActiveDatasetSub.PropertyChanged -= ActiveDatasetSubOnPropertyChanged;
+            listView?.Dispose();
         }
+
+
     }
 }

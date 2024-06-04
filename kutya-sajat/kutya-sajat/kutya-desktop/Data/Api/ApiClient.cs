@@ -1,9 +1,11 @@
-﻿using kutya_desktop.Data.Models;
+﻿using System.Collections.Generic;
+using kutya_desktop.Data.Models;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Security.Principal;
 
 namespace kutya_desktop.Data.Api
 {
@@ -15,7 +17,7 @@ namespace kutya_desktop.Data.Api
         private JsonSerializerOptions serializerOptions => new JsonSerializerOptions() 
         { 
             PropertyNameCaseInsensitive = true, 
-            ReferenceHandler = ReferenceHandler.Preserve
+            ReferenceHandler = ReferenceHandler.Preserve,
         };
 
         public ApiClient(string baseUrl)
@@ -35,7 +37,7 @@ namespace kutya_desktop.Data.Api
             response.EnsureSuccessStatusCode();
             var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            var dto = JsonSerializer.Deserialize<ResponseDto<T>>(jsonResponse, serializerOptions) ;;
+            var dto = Newtonsoft.Json.JsonConvert.DeserializeObject<ResponseDto<T>>(jsonResponse);
             return dto.Data;
         }
 
@@ -49,6 +51,17 @@ namespace kutya_desktop.Data.Api
         {
             var response = await _httpClient.PutAsync($"{_baseUrl}{endpoint}", GetContent(data));
             response.EnsureSuccessStatusCode();
+        }
+
+        public async Task<T> PatchAsync<T>(string endpoint, dynamic data)
+        {
+            var response = await _httpClient.PatchAsync($"{_baseUrl}{endpoint}", GetContent(data));
+
+            response.EnsureSuccessStatusCode();
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            var dto = Newtonsoft.Json.JsonConvert.DeserializeObject<ResponseDto<T>>(jsonResponse);
+            return dto.Data;
         }
 
         public async Task DeleteAsync(string endpoint)

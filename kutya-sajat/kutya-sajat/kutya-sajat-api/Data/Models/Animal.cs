@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
+using Bogus.DataSets;
 
 namespace kutya_sajat_api.Data.Models
 {
@@ -27,6 +28,11 @@ namespace kutya_sajat_api.Data.Models
             context.Entry(this).Reference(x => x.Breed).Load();
             context.Entry(this).Reference(x => x.Owner).Load();
             context.Entry(this).Collection(x => x.MedicalRecords).Load();
+        }
+
+        public override string ToString()
+        {
+            return $"{AnimalId}{Name}{DateOfBirth}{Breed.Name}{Owner.Name}";
         }
     }
 }

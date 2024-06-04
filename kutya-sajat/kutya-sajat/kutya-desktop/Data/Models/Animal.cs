@@ -16,13 +16,13 @@ namespace kutya_desktop.Data.Models
         public DateTime DateOfBirth { get; set; }
 
         public int BreedId { get; set; }
-        public virtual Breed Breed { get; set; }
+        public Breed Breed { get; set; }
 
         public int OwnerId { get; set; }
-        public virtual Owner Owner { get; set; }
+        public Owner Owner { get; set; }
 
         [JsonIgnore]
-        public virtual List<MedicalRecord> MedicalRecords { get; set; }
+        public List<MedicalRecord> MedicalRecords { get; set; }
 
         public int? GetIdentitifier()
             => AnimalId;
@@ -36,13 +36,28 @@ namespace kutya_desktop.Data.Models
 
             DataGridTextColumn nameColumn = new DataGridTextColumn();
             nameColumn.Header = "Név";
-            nameColumn.Binding = new Binding("Owner.Name");
+            nameColumn.Binding = new Binding("Name");
             dataGrid.Columns.Add(nameColumn);
 
             DataGridTextColumn descriptionColumn = new DataGridTextColumn();
             descriptionColumn.Header = "Születési dátum";
             descriptionColumn.Binding = new Binding("DateOfBirth");
             dataGrid.Columns.Add(descriptionColumn);
+
+            DataGridTextColumn breedColumn = new DataGridTextColumn();
+            breedColumn.Header = "Fajta";
+            breedColumn.Binding = new Binding("Breed.Name");
+            dataGrid.Columns.Add(breedColumn);
+
+            DataGridTextColumn ownerNameColumn = new DataGridTextColumn();
+            ownerNameColumn.Header = "Gazda neve";
+            ownerNameColumn.Binding = new Binding("Owner.Name");
+            dataGrid.Columns.Add(ownerNameColumn);
+
+            DataGridTextColumn ownerIdCard = new DataGridTextColumn();
+            ownerIdCard.Header = "Gazda Szig. száma";
+            ownerIdCard.Binding = new Binding("Owner.IdCardNumber");
+            dataGrid.Columns.Add(ownerIdCard);
         }
 
         public void BuildDataGridControls(IDatagridCompatibleViewModel viewModel)
