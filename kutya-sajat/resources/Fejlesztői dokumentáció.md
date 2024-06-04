@@ -8,7 +8,6 @@
     - [Komponensek és Interakciók](#komponensek-és-interakciók)
     - [Adatfolyam](#adatfolyam)
     - [Adatbázis terv](#adatbázis-terv)
-  - [!a](#)
   - [Telepítési Lépések](#telepítési-lépések)
   - [API Dokumentáció](#api-dokumentáció)
     - [Állatok](#állatok)
@@ -102,13 +101,15 @@
 1. **Backend Telepítés**:
    - Visual Studio használata az ASP.NET Core projekt létrehozásához és futtatásához.
    - Az adatbázis konfigurálása és migrációk végrehajtása.
+   - Két projekt található a projektmunka-24.05.15/kutya-sajat/kutya-sajat mappában: kutya-desktop, kutya-sajat-api, az api projekt futtatásával létesíthető a backend szerver.
 
 2. **Frontend Telepítés (WPF)**:
    - Visual Studio használata a WPF projekt létrehozásához és futtatásához.
-
+    - Két projekt található a projektmunka-24.05.15/kutya-sajat/kutya-sajat mappában: kutya-desktop, kutya-sajat-api, a desktop projekt futtatásával létesíthető a frontend szerver.
 3. **Frontend Telepítés (Web)**:
    - Node.js és npm használata a frontend fejlesztéséhez.
    - A projekt buildelése és a statikus fájlok hosztolása.
+   
 
 
 ## API Dokumentáció
